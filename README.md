@@ -8,7 +8,7 @@ Made to control music on a computer from a smartphone.
 - Open http://**{computer_ip}**:3000/ in your browser
 
 ## Future plans:
-0) Show local computer IP
+0) [**Ready**] Show local computer IP
 1) Add password for connect to service
 2) Use TypeScript
 3) Move PORT to env
