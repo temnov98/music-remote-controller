@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<style>
+  button {
+    width: 100%;
+    color: blue;
+    padding: 60px;
+    font-size: 70px;
+    font-weight: bold;
+  }
+</style>
+<script>
+  async function executeCommand(command) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', `commands/${command}`, true);
+    xhr.send();
+  }
+</script>
+<body>
+  <div><button onclick="executeCommand('audio_mute')">Mute</button></div>
+  <div><button onclick="executeCommand('audio_play')">Play</button></div>
+  <div><button onclick="executeCommand('audio_pause')">Pause</button></div>
+  <div><button onclick="executeCommand('audio_prev')">Prev</button></div>
+  <div><button onclick="executeCommand('audio_next')">Next</button></div>
+  <div><button onclick="executeCommand('audio_vol_down')">Vol -</button></div>
+  <div><button onclick="executeCommand('audio_vol_up')">Vol +</button></div>
+</body>
+</html>
