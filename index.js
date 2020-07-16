@@ -57,9 +57,11 @@ function readFileAsync(filename) {
   });
 }
 
-function getFileLoader(filename, ) {
+function getFileLoader(filename, contentType) {
   return async function(req, res) {
     const content = await readFileAsync(filename);
+    res.set('Content-Type', contentType);
+    res.status(200);
     res.send(content);
   }
 }
@@ -70,9 +72,9 @@ function main() {
   const app = express();
 
   // TODO: make normal later
-  app.get('/', getFileLoader('./index.html'));
-  app.get('/manifest.json', getFileLoader('./manifest.json'));
-  app.get('/pwa_logo.jpg', getFileLoader('./pwa_logo.jpg'));
+  app.get('/', getFileLoader('./index.html', 'text/html'));
+  app.get('/manifest.json', getFileLoader('./manifest.json', 'application/manifest+json'));
+  app.get('/pwa_logo.jpg', getFileLoader('./pwa_logo.jpg', 'image/jpg'));
 
   availableCommands.forEach(command => setCommand(app, command));
 
