@@ -57,10 +57,10 @@ function readFileAsync(filename) {
   });
 }
 
-function getFileLoader(filename) {
+function getFileLoader(filename, ) {
   return async function(req, res) {
     const content = await readFileAsync(filename);
-    res.send(content.toString());
+    res.send(content);
   }
 }
 

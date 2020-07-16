@@ -9,7 +9,7 @@ PWA supported.
 - Open http://**{computer_ip}**:3000/ in your browser
 
 ## Future plans:
-0) [**Ready**] Show local computer IP
+0) [**Done**] Show local computer IP
 1) Add password for connect to service
 2) Use TypeScript
 3) Move PORT to env
@@ -17,7 +17,7 @@ PWA supported.
 5) Add websockets?
 6) Vibration should be optional
 7) Use service worker for caching?
-8) Add icons for PWA
+8) [**Done**] Add icons for PWA
 
 ## Screenshots:
 <img src="./docs/images/example.jpg" width="300">

@@ -1,7 +1,14 @@
 {
   "short_name": "MRC",
   "name": "Music Remote Controller",
-  "icons": [],
+  "icons": [
+    {
+      "src": "pwa_logo.jpg",
+      "type": "image/jpg",
+      "sizes": "192x192 512x512 194x194 196x196",
+      "purpose": "any maskable"
+    }
+  ],
   "start_url": "/",
   "scope": "/",
   "background_color": "#3367D6",
