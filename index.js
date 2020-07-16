@@ -43,15 +43,36 @@ function printInfo() {
 
 // #endregion
 
+function readFileAsync(filename) {
+  console.log(filename);
+
+  return new Promise((resolve, reject) => {
+    fs.readFile(filename, (error, data) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(data);
+      }
+    })
+  });
+}
+
+function getFileLoader(filename) {
+  return async function(req, res) {
+    const content = await readFileAsync(filename);
+    res.send(content.toString());
+  }
+}
+
 function main() {
   printInfo();
 
   const app = express();
 
-  app.get('/', (req, res) => {
-    const content = fs.readFileSync('./index.html').toString();
-    res.send(content);
-  });
+  // TODO: make normal later
+  app.get('/', getFileLoader('./index.html'));
+  app.get('/manifest.json', getFileLoader('./manifest.json'));
+  app.get('/pwa_logo.jpg', getFileLoader('./pwa_logo.jpg'));
 
   availableCommands.forEach(command => setCommand(app, command));
 

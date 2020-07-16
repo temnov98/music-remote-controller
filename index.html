@@ -1,24 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+  <title></title>
+  <link rel="manifest" href="manifest.json">
+  <!-- <script type="text/javascript">
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+      .then(function(registration) {
+        console.log('Registration successful, scope is:', registration.scope);
+      })
+      .catch(function(error) {
+        console.log('Service worker registration failed, error:', error);
+      });
+    }
+  </script> -->
+  <style>
+    button {
+      width: 100%;
+      color: blue;
+      padding: 60px;
+      font-size: 70px;
+      font-weight: bold;
+    }
+  </style>
+  <script>
+    async function executeCommand(command) {
+      try {
+        window.navigator.vibrate(70);
+      } catch (e) {
+        // nothing
+      }    
+  
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', `commands/${command}`, true);
+      xhr.send();
+    }
+  </script>
 </head>
-<style>
-  button {
-    width: 100%;
-    color: blue;
-    padding: 60px;
-    font-size: 70px;
-    font-weight: bold;
-  }
-</style>
-<script>
-  async function executeCommand(command) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', `commands/${command}`, true);
-    xhr.send();
-  }
-</script>
 <body>
   <div><button onclick="executeCommand('audio_mute')">Mute</button></div>
   <div><button onclick="executeCommand('audio_play')">Play</button></div>
