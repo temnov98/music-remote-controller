@@ -75,6 +75,7 @@ function main() {
   app.get('/', getFileLoader('./index.html', 'text/html'));
   app.get('/manifest.json', getFileLoader('./manifest.json', 'application/manifest+json'));
   app.get('/pwa_logo.jpg', getFileLoader('./pwa_logo.jpg', 'image/jpg'));
+  app.get('/sw.js', getFileLoader('./sw.js', 'application/javascript'));
 
   availableCommands.forEach(command => setCommand(app, command));
 
