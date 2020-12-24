@@ -2,6 +2,7 @@ const robot = require("robotjs");
 const express = require('express');
 const fs = require('fs');
 const os = require('os');
+const readline = require('readline');
 
 // #region Constants
 
@@ -66,7 +67,7 @@ function getFileLoader(filename, contentType) {
   }
 }
 
-function main() {
+function startExpressVersion() {
   printInfo();
 
   const app = express();
@@ -80,6 +81,41 @@ function main() {
   availableCommands.forEach(command => setCommand(app, command));
 
   app.listen(port, () => console.log(`Started on port: ${port}`));
+}
+
+function startTelegramVersion() {
+  console.log('Not implemented');
+}
+
+function getUserInput(question) {
+  return new Promise((resolve, reject) => {
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+  
+    rl.question(question, (answer) => {
+      rl.close();
+      resolve(answer);
+    });
+  }); 
+}
+
+async function main() {
+  const answer = await getUserInput('1 - telegram mode, 2 - web mode:\n');
+
+  const answeerToHandlers = {
+    '1': startTelegramVersion,
+    '2': startExpressVersion,
+  };
+
+  const handler = answeerToHandlers[answer];
+  if (!handler) {
+    console.log('Incorrect input');
+    return;
+  }
+
+  handler();
 }
 
 main();
