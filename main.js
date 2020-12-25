@@ -1,8 +1,10 @@
+require('dotenv').config();
 const robot = require("robotjs");
 const express = require('express');
 const fs = require('fs');
 const os = require('os');
 const readline = require('readline');
+const { Telegraf, Markup, BaseScene, Stage } = require('telegraf');
 
 // #region Constants
 
@@ -84,7 +86,64 @@ function startExpressVersion() {
 }
 
 function startTelegramVersion() {
-  console.log('Not implemented');
+  const logginedIds = new Set();
+
+  const password = Math.random().toFixed(6).substr(-6);
+  console.log(`Password: ${password}`);
+
+  const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN)
+
+  bot.command('start', ({ reply }) => reply(`/login\n/logout\n\n/plus\n\n/minus\n\n/pause\n\n/mute\n\n/next\n\n/prev`));
+
+  bot.command('login', (ctx) => {
+    // TODO: add logic
+    logginedIds.add(ctx.chat.id);
+    return ctx.reply(`done`);
+  });
+
+  bot.command('logout', (ctx) => {
+    // TODO: add logic
+    logginedIds.delete(ctx.chat.id);
+    return ctx.reply(`done`);
+  });
+
+  // TODO: add logic verifcation id logic
+  bot.command('plus', (ctx) => {
+    robot.keyTap('audio_vol_up');
+    ctx.deleteMessage();
+  });
+  bot.command('minus', (ctx) => {
+    robot.keyTap('audio_vol_down');
+    ctx.deleteMessage();
+  });
+  bot.command('pause', (ctx) => {
+    robot.keyTap('audio_pause');
+    ctx.deleteMessage();
+  });
+  bot.command('mute', (ctx) => {
+    robot.keyTap('audio_mute');
+    ctx.deleteMessage();
+  });
+  bot.command('next', (ctx) => {
+    robot.keyTap('audio_next');
+    ctx.deleteMessage();
+  });
+  bot.command('prev', (ctx) => {
+    robot.keyTap('audio_prev');
+    ctx.deleteMessage();
+  });
+
+  bot.on('message', async (ctx) => {
+    console.log(ctx.message?.text);
+  });
+
+  bot.launch();
+
+  // Enable graceful stop
+  process.once('SIGINT', () => bot.stop('SIGINT'));
+  process.once('SIGTERM', () => bot.stop('SIGTERM'));
+
+  console.log(`Bot started`);
 }
 
 function getUserInput(question) {

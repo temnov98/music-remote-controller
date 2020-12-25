@@ -18,6 +18,7 @@ PWA supported.
 6) Vibration should be optional
 7) Use service worker for caching?
 8) [**Done**] Add icons for PWA
+9) Split main.js into several files and create directore src
 
 ## Screenshots:
 <img src="./docs/images/example.jpg" width="300">
